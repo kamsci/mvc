@@ -3,6 +3,6 @@ module.exports = function(req, res, next) {
     next();
   } else {
     req.flash("Error", "Please login");
-    res.redirect("/auth/login");
+    res.redirect("/");
   }
 }

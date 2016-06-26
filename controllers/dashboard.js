@@ -1,18 +1,14 @@
 var express = require('express');
 var db = require("../models");
 var passport = require("../config/ppConfig");
+var isLoggedIn = require("../middleware/isLoggedIn");
 var router = express.Router();
 
 //////////////////////////////////////////
 
-// router.get('/signup', function(req, res) {
-//   res.render('auth/signup');
-// });
+router.get('/', isLoggedIn, function(req, res) {
+  res.render('dashboard.ejs');
+});
 
-
-// router.get('/login', function(req, res) {
-//   res.redirect('../profile');
-// });
-
-
+//////////////////////////////////////////
 module.exports = router;

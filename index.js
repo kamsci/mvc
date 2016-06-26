@@ -1,4 +1,5 @@
 var express = require('express');
+var db = require("./models");
 var ejsLayouts = require('express-ejs-layouts');
 var bodyParser = require('body-parser');
 var session = require("express-session");
@@ -12,6 +13,7 @@ app.set('view engine', 'ejs');
 app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ejsLayouts);
+app.use(express.static(__dirname + '/public/'));
 app.use(session ({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -32,11 +34,44 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.get('/profile', isLoggedIn, function(req, res) {
-  res.render('profile');
+// POST Modal action /signup
+app.post("/signup", function(req, res) {
+  db.user.findOrCreate({
+    where: { email: req.body.email },
+    defaults: {
+      name: req.body.name,
+      password: req.body.password
+    }
+  }).spread(function (user, created) {
+    if (created) {
+      passport.authenticate("local", {
+        successRedirect: "/dashboard",
+        successFlash: "User created. You are logged in."
+      })(req, res);
+    } else {
+      req.flash("Error", "User with that email already exists");
+      res.redirect("/");
+    }
+  }).catch(function(error) {
+    console.log("Create User Error Occured", error.message);
+    res.redirect("/");
+  })
 });
 
-app.use('/auth', require('./controllers/auth'));
+// POST Modal action /login
+app.post("/login", passport.authenticate("local", {
+  successRedirect: "/dashboard",
+  failureRedirect: "/",
+  failureFlash: "Login Failed"
+}));
+
+app.get("/logout", function(req, res) {
+  req.logout();
+  res.redirect("/");
+});
+
+// app.use('/auth', require('./controllers/auth'));
+app.use("/dashboard", require("./controllers/dashboard"));
 
 var server = app.listen(process.env.PORT || 3000);
 

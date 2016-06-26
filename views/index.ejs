@@ -1,6 +1,20 @@
-<h2>Home</h2>
+<!-- Include modals -->
+<%- include partials/auth/login.ejs %>
+<%- include partials/auth/signup.ejs %>
+<!-- end modals -->
 
-<a href="/auth/signup">Signup</a>
-<a href="/auth/login">Login</a>
-<a href="/auth/logout">Logout</a>
-<a href="/profile">Profile</a>
+<ul class="enter-nav">
+  <li type="button" class="list-nav" data-toggle="modal" data-target="#signup-modal">SignUp</li>
+  <li type="button" class="list-nav" data-toggle="modal" data-target="#login-modal">Login</li>
+  <li class="list-nav"><a href="/logout">Logout</a></li>
+</ul>
+<div class="container">
+  <h3>Free Hospital Readmissions Dashboard</h3>
+
+  <p>Hospital Readmissions for high-risk diagnosis are an important metric for patients health and stability and for the bottom-line of the hospital. The Center for Medicare and Medicaid Services(CMS) has identified 5 high-risk diagnosis that create 5 hospital quality measures.
+  </p>
+  <p>
+  Use this site to create a simple and readable dashboard on the readmission ratios for any CMS certified hospital.
+  </p>
+</div>
+
