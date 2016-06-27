@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var db = require("../models");
 var request = require("request");
 var passport = require("../config/ppConfig");
@@ -7,8 +7,8 @@ var router = express.Router();
 
 //////////////////////////////////////////
 
-router.get('/', isLoggedIn, function(req, res) {
-  res.render('dashboard.ejs');
+router.get("/", isLoggedIn, function(req, res) {
+  res.render("dashboard.ejs");
 });
 
 router.post("/q-provider", isLoggedIn, function(req, res) {
@@ -24,6 +24,9 @@ router.post("/q-provider", isLoggedIn, function(req, res) {
 // }).catch(function(error) {
 });
 
+router.get("/data", isLoggedIn, function(req, res) {
+  res.render("data.ejs");
+})
 
 //////////////////////////////////////////
 module.exports = router;

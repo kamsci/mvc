@@ -47,7 +47,7 @@ app.post("/signup", function(req, res) {
   }).spread(function (user, created) {
     if (created) {
       passport.authenticate("local", {
-        successRedirect: "/dashboard",
+        successRedirect: "/dashboard/data",
         successFlash: "User created. You are logged in."
       })(req, res);
     } else {
