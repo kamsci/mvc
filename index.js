@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require("./models");
+var request = require("request");
 var ejsLayouts = require('express-ejs-layouts');
 var bodyParser = require('body-parser');
 var session = require("express-session");
@@ -7,6 +8,7 @@ var passport = require("./config/ppConfig");
 var flash = require("connect-flash");
 var isLoggedIn = require("./middleware/isLoggedIn");
 var app = express();
+var Highcharts = require('highcharts');
 
 app.set('view engine', 'ejs');
 
