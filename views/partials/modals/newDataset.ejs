@@ -7,28 +7,35 @@
       </div>
       <div class="modal-body">
         <!-- Form -->
+        <form action="/dashboard/new-dataset" method="POST">
         <label for="benchmark">Dashboard Name* </label>
           <input id="benchmark" class="form-control" type="text" name="dataset" required>
           <br>
-          <!-- form -->
-        <form action="dashboard/new-dataset" method="POST">
           <h4>Select Hospital</h4>
           <div class="form-group">
-            <label for="provider">CMS Provider ID*</label>
-            <input id="provider" class="form-control" type="number" name="hospital" required>
-            <p class="fine-print text-muted">*required - 6-digit provider id assigned by the Center for Medicare and Medicaid Services (CMS)</p>
+            <label for="provider">Hospital* <span class="fine-print text-muted">*required - listed with 6-digit provider id assigned by the Center for Medicare and Medicaid Services (CMS)</span></label>
+            <select id="dataset" class="form-control dropdown" name="hospital">
+              <!-- forEach loop with datasets in database -->
+              <% hospitals.forEach(function(hos) { %>
+                <option><%= hos.hospital_name %> - <%= hos.provider_id %></option>
+              <% }) %>
+            </select>
           </div>
+          <br>
           <h4>Create Benchmark for Comparison <span class="fine-print text-muted">*required</span></h4>
           <div class="form-group">
-            <label for="radios">Compare to the*  </label>
-            <span id="radios">
+            <label for="states">Compare to*  </label>
+              <select id="states" class="form-control" name="state">
+                <%- include selectState.ejs %>
+              </select>
+            <!-- <span id="radios">
               <label class="radio-inline">
                 <input type="radio" name="benchmark" value="Nation" checked>Nation
               </label>
               <label class="radio-inline">
                 <input type="radio" name="benchmark" value="State">State
               </label>
-            </span>
+            </span> -->
             <!-- <h4>Option to Limit by:</h4>
             <label for="h-type">Hospital Type</label>
               <!-- <input id="h-type" class="form-control" type="text" name="h-type" value="">-->
