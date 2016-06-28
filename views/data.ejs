@@ -1,7 +1,67 @@
-<%- include partials/modals/queryProvider.ejs %>
-<!-- - include partials/dashboard/newBenchmark.ejs %> -->
+<!-- Header -->
+<h4 class="list-name">Bobby</h4>
+<ul class="enter-nav">
+  <li class="list-nav"><a href="/">Home</a></li>
+  <li class="list-nav">logout</li>
+</ul>
+<!-- Select Data Set-->
+<div class="container-fluid">
+  <div>
+    <form class="form-inline" action="/dashboard/q-dataset" method="GET">
+      <h3 for="dataset" class="inline">Select Data Set From Library </h3>
+        <select id="dataset" class="form-control dropdown">
+          <!-- forEach loop with datasets in database -->
+          <option>e</option>
+        </select>
+      <input type="submit" class="btn btn-primary">
+    </form>
+  </div>
+  <div>
+  </div>
+  <hr class="thick">
+  <!-- Data Set List -->
+  <div>
+    <h2 class="header">My Data Set Library<h2
+    <button type="button" class="btn btn-info btn-xs header-btn" data-toggle="modal" data-target="#dataset-modal">Add dashboard dataset</button>
+  </div>
+  <!-- forEach loop here -->
+    <div>
+      <h3 class="report">Report Name</h3>
+    </div>
+    <!-- Provider info -->
+  <div class="dataset-box"> <!-- Dataset -->
+    <div>
+      <h4 class="header">Hospital Provider</h4>
+    </div>
+    <div>
+      <table class="table data-table">
+        <thead>
+          <tr>
+            <th>Provider ID</th>
+            <th>Name</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Ownership</th>
+            <th>Type</th>
+            <th>Emergency Services</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>123456</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Benchmarks info -->
+    <div>
+      <h4 class="header">Compared against Benchmark: </h4>
+      <p class="inline">PA</p>
+    </div>
+  </div> <!-- end dataset -->
+  <hr>
+  <!-- end for each -->
+</div>
 
-
-<h1>My Data</h1>
-
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#provider-modal">Add Provider</button>
+<!-- Include New Data Set modal -->
+<%- include partials/modals/queryBenchmark.ejs %>
