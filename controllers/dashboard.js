@@ -43,13 +43,13 @@ router.post("/new-dataset", isLoggedIn, function(req, res) {
     .then(function(bench) {
       var user = req.session.passport.user;
       db.dataset.create({
-          name: req.body.dataset,
-          userId: user,
-          hospitalId: hos.id,
-          benchmarkId: bench.id
+        name: req.body.dataset,
+        userId: user,
+        hospitalId: hos.id,
+        benchmarkId: bench.id
       })
       .catch(function(error) {
-        console.log("DataSet Create Error")
+        console.log("Error Creating DataSet")
       });
     });
   });
