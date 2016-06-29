@@ -10,19 +10,22 @@ var request = require("request");
         // console.log("dataArray: ", dataArray);
         // console.log("obj: ", dataArray[0]);
         dataArray.forEach(function(hospitalObj) {
-          db.hospital.findOrCreate({
-            where: { provider_id: hospitalObj.provider_id},
-            defaults: {
-              hospital_name: hospitalObj.hospital_name,
-              city: hospitalObj.city,
-              state: hospitalObj.state,
-              hospital_type: hospitalObj.hospital_type,
-              hospital_ownership: hospitalObj.hospital_ownership,
-              emergency_services: hospitalObj.emergency_services
-            }
-          }).spread(function(hospital, created) {
-            console.log("Hospitals Database Updated");
-          });
+          if ((hospitalObj.readm_ratio !== "Not Available")
+             && (hospitalObj.readm_ratio !== "Too Few to Report")) {
+            db.hospital.findOrCreate({
+              where: { provider_id: hospitalObj.provider_id},
+              defaults: {
+                hospital_name: hospitalObj.hospital_name,
+                city: hospitalObj.city,
+                state: hospitalObj.state,
+                hospital_type: hospitalObj.hospital_type,
+                hospital_ownership: hospitalObj.hospital_ownership,
+                emergency_services: hospitalObj.emergency_services
+              }
+            }).spread(function(hospital, created) {
+              console.log("Hospitals Database Updated");
+            });
+          }
         });
       }
   });

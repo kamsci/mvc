@@ -7,14 +7,16 @@
 <!-- Select Data Set-->
 <div class="container-fluid">
   <div>
-    <form class="form-inline" action="/dashboard/q-dataset" method="GET">
-      <h3 for="dataset" class="inline">Select Data Set From Library </h3>
-        <select id="dataset" class="form-control dropdown" name="library">
-          <!-- forEach loop with datasets in database -->
-          <% userData.forEach(function(data) { %>
-            <option><%= data.name %></option>
-          <% }) %>
-        </select>
+    <form class="form-inline" action="/dashboard/q-dataset" method="POST">
+      <div class="form-group">
+        <label for="dataset" class="inline">Select Data Set From Library </label>
+          <select id="dataset" class="form-control dropdown" name="library">
+            <!-- forEach loop with datasets in database -->
+            <% userData.forEach(function(data) { %>
+              <option><%= data.name %></option>
+            <% }) %>
+          </select>
+        </div>
       <input type="submit" class="btn btn-primary inline">
     </form>
   </div>
@@ -64,7 +66,7 @@
       </div>
       <!-- Benchmarks info -->
       <div>
-        <h4 class="header">Compared against Benchmark: </h4>
+        <h4 class="header">Compared against benchmark: </h4>
         <p class="inline"><%= data.benchmark.name %></p>
       </div>
     </div><!-- end dataset -->

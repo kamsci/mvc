@@ -8,8 +8,8 @@
       <div class="modal-body">
         <!-- Form -->
         <form action="/dashboard/new-dataset" method="POST">
-        <label for="benchmark">Dashboard Name* </label>
-          <input id="benchmark" class="form-control" type="text" name="dataset" required>
+          <label for="benchmark">Dashboard Name* </label>
+            <input id="benchmark" class="form-control" type="text" name="dataset" required>
           <br>
           <h4>Select Hospital</h4>
           <div class="form-group">
@@ -28,37 +28,6 @@
               <select id="states" class="form-control" name="state">
                 <%- include selectState.ejs %>
               </select>
-            <!-- <span id="radios">
-              <label class="radio-inline">
-                <input type="radio" name="benchmark" value="Nation" checked>Nation
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="benchmark" value="State">State
-              </label>
-            </span> -->
-            <!-- <h4>Option to Limit by:</h4>
-            <label for="h-type">Hospital Type</label>
-              <!-- <input id="h-type" class="form-control" type="text" name="h-type" value="">-->
-              <!-- <select id="h-ownership" class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            <label for="h-ownership">Hospital Ownership</label>
-              <input id="h-ownership" class="form-control" type="text" name="h-ownership" value="">
-              <select id="h-ownership" class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            <label for="h-emergency">Emergency Services Provided</label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="h-emergency" value="option1">Yes
-              </label>-->
           </div>
           <div class="modal-footer">
             <input class="btn btn-primary" type="submit">
