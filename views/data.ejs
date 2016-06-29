@@ -9,13 +9,13 @@
   <div>
     <form class="form-inline" action="/dashboard/q-dataset" method="GET">
       <h3 for="dataset" class="inline">Select Data Set From Library </h3>
-        <select id="dataset" class="form-control dropdown">
+        <select id="dataset" class="form-control dropdown" name="library">
           <!-- forEach loop with datasets in database -->
-
-            <option>Example Option</option>
-
+          <% userData.forEach(function(data) { %>
+            <option><%= data.name %></option>
+          <% }) %>
         </select>
-      <input type="submit" class="btn btn-primary">
+      <input type="submit" class="btn btn-primary inline">
     </form>
   </div>
   <div>
@@ -27,42 +27,49 @@
     <button type="button" class="btn btn-info btn-xs header-btn" data-toggle="modal" data-target="#dataset-modal">Add dashboard dataset</button>
   </div>
   <!-- forEach loop here -->
+  <% userData.forEach(function(data) { %>
     <div>
-      <h3 class="report">Report Name</h3>
+      <h3 class="report"><%= data.name %></h3>
     </div>
-    <!-- Provider info -->
-  <div class="dataset-box"> <!-- Dataset -->
-    <div>
-      <h4 class="header">Hospital Provider</h4>
-    </div>
-    <div>
-      <table class="table data-table">
-        <thead>
-          <tr>
-            <th>Provider ID</th>
-            <th>Name</th>
-            <th>State</th>
-            <th>City</th>
-            <th>Ownership</th>
-            <th>Type</th>
-            <th>Emergency Services</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>123456</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- Benchmarks info -->
-    <div>
-      <h4 class="header">Compared against Benchmark: </h4>
-      <p class="inline">PA</p>
-    </div>
-  </div> <!-- end dataset -->
-  <hr>
-  <!-- end for each -->
+      <!-- Provider info -->
+    <div class="dataset-box"> <!-- Dataset -->
+      <div>
+        <h4 class="header">Hospital Provider</h4>
+      </div>
+      <div>
+        <table class="table data-table">
+          <thead>
+            <tr>
+              <th>Provider ID</th>
+              <th>Name</th>
+              <th>State</th>
+              <th>City</th>
+              <th>Ownership</th>
+              <th>Type</th>
+              <th>Emergency Services</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= data.hospital.provider_id %></td>
+              <td><%= data.hospital.hospital_name %></td>
+              <td><%= data.hospital.state %></td>
+              <td><%= data.hospital.city %></td>
+              <td><%= data.hospital.hospital_ownership %></td>
+              <td><%= data.hospital.hospital_type %></td>
+              <td><%= data.hospital.emergency_services %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Benchmarks info -->
+      <div>
+        <h4 class="header">Compared against Benchmark: </h4>
+        <p class="inline"><%= data.benchmark.name %></p>
+      </div>
+    </div><!-- end dataset -->
+    <hr>
+  <% }) %><!-- %>end for loop -->
 </div>
 
 <!-- Include New Data Set modal -->

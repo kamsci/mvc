@@ -27,6 +27,8 @@ var request = require("request");
   //     }
   // });
 
+// 2. Create a data set and benchmark
+
 // QUERY TESTS
 // 1. find all hospital names for select dropdown - Sort
   db.hospital.findAll()

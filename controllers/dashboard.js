@@ -9,35 +9,38 @@ var ratioArray = [];
 
 //////////////////////////////////////////
 
+// Dashboard - Report Page
 router.get("/", isLoggedIn, function(req, res) {
   res.render("dashboard.ejs");
 });
-
+// POPULATE - user data in My Libraries
 router.get("/data", isLoggedIn, function(req, res) {
+  var user = req.session.passport.user;
   db.hospital.findAll()
   .then(function(hospitals) {
-    // console.log("Obj: ", hospitals);
-    res.render("data.ejs", { hospitals: hospitals });
+    db.dataset.findAll({
+      where: { userId: user },
+      include: [db.benchmark, db.hospital]
+    })
+    .then(function(dataset) {
+      // console.log("@Data:", dataset[0].benchmark.name);
+      res.render("data.ejs", { hospitals: hospitals, userData: dataset });
+    });
   });
 });
-
+// FORM - Add dashboard dataset
 router.post("/new-dataset", isLoggedIn, function(req, res) {
-  // var hospital = {};
-  // var benchmark = {};
-  // var dashboard = {};
   var array = req.body.hospital.split(" - ");
   var id = array[1];
   db.hospital.find({
     where: { provider_id: id }
   })
   .then(function(hos) {
-    // hospital = hos;
     db.benchmark.create({
       name: req.body.state,
       type: "location"
     })
     .then(function(bench) {
-      // benchmark = bench;
       var user = req.session.passport.user;
       db.dataset.create({
           name: req.body.dataset,
@@ -45,36 +48,36 @@ router.post("/new-dataset", isLoggedIn, function(req, res) {
           hospitalId: hos.id,
           benchmarkId: bench.id
       })
-      .then(function(dash) {
-        console.log("@Hospital:", hospital);
-        console.log("@Benchmark:", benchmark);
-        console.log("@Dash:", dash);
-        res.render("data.ejs", { datasetH: hos, datasetB: bench, dash: dash });
-
-      })
       .catch(function(error) {
         console.log("DataSet Create Error")
       });
     });
   });
 });
-
+// FORM - Select dataset from Library
 router.get("/q-dataset", isLoggedIn, function(req, res) {
-  request({
-    url: "https://data.medicare.gov/resource/kac9-a9fp.json",
-    where: { state: "PA"}
-  }, function(error, response, data) {
-    if (!error && response.statusCode === 200) {
-      var dataArray = JSON.parse(data);
-      for (var i = 0; i < dataArray.length; i++) {
-        // console.log(dataArray[i].readm_ratio);
-        // ratioArray.push(data[i].readm_ratio)
-      }
-      // console.log(ratioArray);
-      // console.log(dataArray.length);
-      res.redirect("/dashboard");
-    }
+  db.dataset.find({
+    where: { name: req.body.library },
+    include: [db.benchmark]
   })
+  .then(function(dataset) {
+    console.log("@Dataset:", dataset);
+  })
+  // request({
+  //   url: "https://data.medicare.gov/resource/kac9-a9fp.json",
+  //   where: { state: "PA"}
+  // }, function(error, response, data) {
+  //   if (!error && response.statusCode === 200) {
+  //     var dataArray = JSON.parse(data);
+  //     for (var i = 0; i < dataArray.length; i++) {
+  //       // console.log(dataArray[i].readm_ratio);
+  //       // ratioArray.push(data[i].readm_ratio)
+  //     }
+  //     // console.log(ratioArray);
+  //     // console.log(dataArray.length);
+  //     res.redirect("/dashboard");
+  //   }
+  // })
 })
 
 //////////////////////////////////////////
