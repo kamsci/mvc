@@ -3,13 +3,13 @@
   <li class="list-nav"><a href="/">Home</a></li>
   <li class="list-nav">logout</li>
 </ul>
-<h4 class="list-name">Bobby</h4>
+<h6 class="list-name">Bobby</h6>
 <!-- Select Data Set-->
 <div class="container-fluid">
   <div>
     <form class="form-inline" action="/dashboard/q-dataset" method="POST">
       <div class="form-group">
-        <label for="dataset" class="inline">Select Data Set From Library </label>
+        <h5 for="dataset" class="inline">Select Data Set From Library </h5>
           <select id="dataset" class="form-control dropdown" name="library">
             <!-- forEach loop with datasets in database -->
             <% userData.forEach(function(data) { %>
@@ -17,7 +17,7 @@
             <% }) %>
           </select>
         </div>
-      <input type="submit" class="btn btn-primary inline">
+      <input type="submit" value="Run Report" class="btn inline">
     </form>
   </div>
   <div>
@@ -25,18 +25,20 @@
   <hr class="thick">
   <!-- Data Set List -->
   <div>
-    <h2 class="header">My Data Set Library<h2
-    <button type="button" class="btn btn-info btn-xs header-btn" data-toggle="modal" data-target="#dataset-modal">Add dashboard dataset</button>
+    <h4 class="header">My Data Set Library</h4>
+    <a class="btn-floating btn-large waves-effect waves-light red" data-toggle="modal" data-target="#dataset-modal"><i class="material-icons">add</i></a>
+    <h6 class="inline">Add dashboard dataset</h6>
+    <!-- <button type="button" class="btn btn-info btn-xs header-btn" data-toggle="modal" data-target="#dataset-modal">Add dashboard dataset</button> -->
   </div>
   <!-- forEach loop here -->
   <% userData.forEach(function(data) { %>
     <div>
-      <h3 class="report"><%= data.name %></h3>
+      <h5 class="report"><%= data.name %></h5>
     </div>
       <!-- Provider info -->
     <div class="dataset-box"> <!-- Dataset -->
       <div>
-        <h4 class="header">Hospital Provider</h4>
+        <h6 class="header">Hospital Provider</h6>
       </div>
       <div>
         <table class="responsive-table data-table">
@@ -66,8 +68,8 @@
       </div>
       <!-- Benchmarks info -->
       <div>
-        <h4 class="header">Compared against benchmark: </h4>
-        <p class="inline"><%= data.benchmark.name %></p>
+        <h6 class="header">Compared against benchmark: </h6>
+        <h6 class="inline"><%= data.benchmark.name %></h6>
       </div>
     </div><!-- end dataset -->
     <hr>

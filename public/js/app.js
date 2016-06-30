@@ -316,7 +316,7 @@ $(document).ready(function() {
 
     $('#chart-container-5').highcharts(chartOptionsHF)
 
-        // Chart-container-3 HIP/KNEE //
+    // Chart-container-6 Pneumonia //
     var chartDataBenchmarkPNbottom = parseFloat(data.ratioObjAll.benchmark[4][0]);
     var chartDataBenchmarkPNtop = parseFloat(data.ratioObjAll.benchmark[4][1]);
     var chartDataHospitalPN = parseFloat(data.ratioObjAll.hospital[4]);
@@ -374,6 +374,65 @@ $(document).ready(function() {
       };
 
     $('#chart-container-6').highcharts(chartOptionsPN);
+
+    // HOME PAGE Chart-container-7 Excess Ratio Range //
+    var chartOptionsPN = {
+      chart: {
+              type: 'columnrange',
+              inverted: true
+          },
+
+          title: {
+              text: 'Excess Ratio Variation Across the US'
+          },
+
+          subtitle: {
+              text: 'Highest and Lowest Excess Readmission Ratio scores across the United States for each Measure'
+          },
+
+          xAxis: {
+              categories: ['COPD', 'HIP/KNEE', 'AMI', 'Heart Failure', 'Pneumonia']
+          },
+
+          yAxis: {
+              title: {
+                  text: 'Excess Ratio'
+              }
+          },
+
+          plotOptions: {
+              columnrange: {
+                  dataLabels: {
+                      enabled: true,
+                      formatter: function () {
+                          return this.y + '°C';
+                      }
+                  }
+              }
+          },
+
+          legend: {
+              enabled: false
+          },
+
+          series: [{
+              name: 'Temperatures',
+              data: [
+                  [-9.7, 9.4],
+                  [-8.7, 6.5],
+                  [-3.5, 9.4],
+                  [-1.4, 19.9],
+                  [0.0, 22.6],
+                  [2.9, 29.5],
+                  [9.2, 30.7],
+                  [7.3, 26.5],
+                  [4.4, 18.0],
+                  [-3.1, 11.4],
+                  [-5.2, 10.4],
+                  [-13.5, 9.8]
+              ]
+          }]
+      }
   }); // End Ajax
 // }); // End onClick
 
