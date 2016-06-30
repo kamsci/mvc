@@ -8,57 +8,59 @@ $.ajax({
   console.log("DATA", data.readmissionObjAll.benchmark);
 
   $(function () {
-    $('#chart-container-1').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Percent Readmissions out of Discharges'
-        },
-        xAxis: {
-            categories: [
-                'COPD',
-                'Hip/Knee Surgery',
-                'Heart Attack (AMI)',
-                'Heart Failure',
-                'Pneumonia'
-            ]
-        },
-        yAxis: [{
-            min: 0,
-            title: {
-                text: 'Measures'
-            }
-        }],
-        legend: {
-            shadow: false
-        },
-        tooltip: {
-            shared: true
-        },
-        plotOptions: {
-            column: {
-                grouping: false,
-                shadow: false,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'Benchmark',
-            color: 'rgba(165,170,217,1)',
-            data: data.readmissionObjAll.benchmark,
-            pointPadding: 0.3,
-            pointPlacement: 0
-        }, {
-            name: 'Hospital',
-            color: 'rgba(126,86,134,.9)',
-            data: data.readmissionObjAll.hospital,
-            pointPadding: 0.4,
-            pointPlacement: 0
-        }]
-    });
+    var chartDataBenchmark = data.readmissionObjAll.benchmark;
+    var chartDataHospital = data.readmissionObjAll.hospital;
+    var chartOptions = {
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Percent Readmissions out of Discharges'
+      },
+      xAxis: {
+          categories: [
+              'COPD',
+              'Hip/Knee Surgery',
+              'Heart Attack (AMI)',
+              'Heart Failure',
+              'Pneumonia'
+          ]
+      },
+      yAxis: [{
+          min: 0,
+          title: {
+              text: 'Measures'
+          }
+      }],
+      legend: {
+          shadow: false
+      },
+      tooltip: {
+          shared: true
+      },
+      plotOptions: {
+          column: {
+              grouping: false,
+              shadow: false,
+              borderWidth: 0
+          }
+      },
+      series: [{
+          name: 'Benchmark',
+          color: 'rgba(165,170,217,1)',
+          data: chartDataBenchmark,
+          pointPadding: 0.3,
+          pointPlacement: 0
+      }, {
+          name: 'Hospital',
+          color: 'rgba(126,86,134,.9)',
+          data: chartDataHospital,
+          pointPadding: 0.4,
+          pointPlacement: 0
+      }]
+    };
 
-    $('#chart-container').highcharts(chartOptions);
+  $('#chart-container-1').highcharts(chartOpions);
   }); // End Chart 1
 
 }); // End Ajax
