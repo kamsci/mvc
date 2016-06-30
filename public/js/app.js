@@ -13,11 +13,12 @@ $(document).ready(function() {
     method: "GET",
     url: "/dashboard/q-dataset"
   }).done(function(data) {
-    console.log("DATA", data.readmissionObjAll.benchmark);
-    console.log("DATA2", data.ratioObjAll.benchmark);
+    console.log("DATASET", data.dataset);
 
+    $("#hospital-name").text("Report for " + data.dataset.hospital.hospital_name);
     /////////////////// HIGHCHARTS //////////////////
 
+    var benchmark = data.dataset.benchmark.name;
     // Chart-container-1 - Percent Readmissions //
       var chartDataBenchmarkP = data.readmissionObjAll.benchmark;
       var chartDataHospitalP = data.readmissionObjAll.hospital;
@@ -65,7 +66,7 @@ $(document).ready(function() {
             }
         },
         series: [{
-            name: 'Benchmark',
+            name: benchmark,
             color: 'rgba(165,170,217,1)',
             data: chartDataBenchmarkP,
             pointPadding: 0.3,
@@ -95,7 +96,7 @@ $(document).ready(function() {
               text: 'COPD'
           },
           subtitle: {
-              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in your Benchmark'
+              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in ' + benchmark
           },
           xAxis: {
               categories: [
@@ -124,11 +125,11 @@ $(document).ready(function() {
               }
           },
           series: [{
-              name: 'Top',
+              name: benchmark +' Top',
               data: [chartDataBenchmarkCOPDtop],
               color: "#7cb5ec"
           }, {
-              name: 'Bottom',
+              name: benchmark +' Bottom',
               data: [chartDataBenchmarkCOPDbottom],
               color: "#7798BF"
           }, {
@@ -152,7 +153,7 @@ $(document).ready(function() {
               text: 'HIP/KNEE'
           },
           subtitle: {
-              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in your Benchmark'
+              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in ' + benchmark
           },
           xAxis: {
               categories: [
@@ -181,12 +182,12 @@ $(document).ready(function() {
               }
           },
           series: [{
-              name: 'Top',
+              name: benchmark +' Top',
               data: [chartDataBenchmarkHKtop],
               color: "#7cb5ec"
 
           }, {
-              name: 'Bottom',
+              name: benchmark +' Bottom',
               data: [chartDataBenchmarkHKbottom],
               color: "#7798BF"
           }, {
@@ -210,7 +211,7 @@ $(document).ready(function() {
               text: 'Heart Attach (AMI)'
           },
           subtitle: {
-              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in your Benchmark'
+              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in ' + benchmark
           },
           xAxis: {
               categories: [
@@ -239,12 +240,12 @@ $(document).ready(function() {
               }
           },
           series: [{
-              name: 'Top',
+              name: benchmark +' Top',
               data: [chartDataBenchmarkAMItop],
               color: "#7cb5ec"
 
           }, {
-              name: 'Bottom',
+              name: benchmark +' Bottom',
               data: [chartDataBenchmarkAMIbottom],
               color: "#7798BF"
           }, {
@@ -268,7 +269,7 @@ $(document).ready(function() {
               text: 'Heart Failure'
           },
           subtitle: {
-              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in your Benchmark'
+              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in ' + benchmark
           },
           xAxis: {
               categories: [
@@ -298,12 +299,12 @@ $(document).ready(function() {
               }
           },
           series: [{
-              name: 'Top',
+              name: benchmark +' Top',
               data: [chartDataBenchmarkHFtop],
               color: "#7cb5ec"
 
           }, {
-              name: 'Bottom',
+              name: benchmark +' Bottom',
               data: [chartDataBenchmarkHFbottom],
               color: "#7798BF"
           }, {
@@ -327,7 +328,7 @@ $(document).ready(function() {
               text: 'Pneumonia'
           },
           subtitle: {
-              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in your Benchmark'
+              text: 'Compare your hospital to the TOP and BOTTOM excess ratios in ' + benchmark
           },
           xAxis: {
               categories: [
@@ -357,12 +358,12 @@ $(document).ready(function() {
               }
           },
           series: [{
-              name: 'Top',
+              name: benchmark +' Top',
               data: [chartDataBenchmarkPNtop],
               color: "#7cb5ec"
 
           }, {
-              name: 'Bottom',
+              name: benchmark +' Bottom',
               data: [chartDataBenchmarkPNbottom],
               color: "#7798BF"
           }, {

@@ -1,4 +1,5 @@
 body {
+  font-family: 'Asap', sans-serif;
   background-color: rgba(239,235,233);
 }
 /* Navigation */
@@ -73,12 +74,10 @@ body {
   width: 75%;
 }
 .chart-section {
-  font-family: 'Dosis', sans-serif;
+/*  font-family: 'Asap', sans-serif;;*/
   text-align: center;
 }
 .p-section {
-  margin-left: 10px;
-  margin-right: 10px;
   font-size: 16px;
-  font-family: 'Dosis', sans-serif;
+  /*font-family: 'Dosis', sans-serif;*/
 }

@@ -170,7 +170,7 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
           // Data used in app.js via AJAX
           console.log("@ratioObjAll:", ratioObjAll);
           console.log("@readmissionObjAll:", readmissionObjAll);
-          res.json({ readmissionObjAll: readmissionObjAll, ratioObjAll: ratioObjAll });
+          res.json({ readmissionObjAll: readmissionObjAll, ratioObjAll: ratioObjAll, dataset: dataset });
         }
       });// end STATE request function
     } else {
@@ -222,7 +222,7 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
           console.log("@ratioObjAll:", ratioObjAll);
           console.log("@readmissionObjAll:", readmissionObjAll);
           // Data used in app.js via AJAX
-          res.json({ readmissionObjAll: readmissionObjAll, ratioObjAll: ratioObjAll });
+          res.json({ readmissionObjAll: readmissionObjAll, ratioObjAll: ratioObjAll, dataset: dataset });
         }
       });// end US request function
     }
