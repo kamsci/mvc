@@ -8,105 +8,94 @@ $(document).ready(function() {
     $(this).css("color", "black");
   });
 
-  // AFAX call for home page chart
-  $.ajax({
-    method: "GET",
-    url: "https://data.medicare.gov/resource/kac9-a9fp.json"
-  }).done(function(dataUsa) {
-    // Array with CMS measures we query for in API
-    // KEY FOR ORDER IN CHART!!
-    var measureArray = ["READM-30-COPD-HRRP", "READM-30-HIP-KNEE-HRRP", "READM-30-AMI-HRRP", "READM-30-HF-HRRP", "READM-30-PN-HRRP"]
-    // Stores top and bottom ratio for US
-    // Place holder arrays
-    var ratioTopBotU = [];
-    var readmPercentHospitalArrU = [];
-    // Get 'Excess Readmissions Ratio' for EACH measure for all hosptials in the US
-    measureArray.forEach(function(measure) {
-      var ratioArrayU = [];
-      for (var i = 0; i < dataUsa.length; i++) {
-        if ((dataUsa[i].measure_id === measure)
-         && (dataUsa[i].readm_ratio !== "Not Available")
-         && (dataUsa[i].readm_ratio !== "Too Few to Report"))
-        {
-          ratioArrayU.push(dataUsa[i].readm_ratio);
-        }
-        // Total readmissions and discharges for combined hostitals in the US
-        if ((dataUsa[i].measure_id === measure)
-         && (dataUsa[i].number_of_readmissions !== "Not Available")
-         && (dataUsa[i].number_of_readmissions !== "Too Few to Report")
-         && (dataUsa[i].number_of_discharges !== "Not Available")
-         && (dataUsa[i].number_of_discharges !== "Too Few to Report"))
-        {
-          var totalReadminsU =+ dataUsa[i].number_of_readmissions;
-          var totalDischargesU =+ dataUsa[i].number_of_discharges;
-        }
-      } // end for loop
-      // Percent of readmissions out of discharges for the US
-      var readminPercentbyU = (totalReadminsU / totalDischargesU) * 100;
-      readmPercentHospitalArrU.push(readminPercentbyU);
-      // Sort and store only top and bottom 'Excess Readmissions Ratio'
-      ratioArrayU = ratioArrayU.sort(function(a, b) { return a - b });
-      var sortedArrayU = [];
-      sortedArrayU.push(ratioArrayU[0], ratioArrayU[ratioArrayU.length - 1]);
-      ratioTopBotU.push(sortedArrayU);
-    });
-  }) // End AJAX 1
+  // // AFAX call for home page chart
+  // $.ajax({
+  //   method: "GET",
+  //   url: "https://data.medicare.gov/resource/kac9-a9fp.json"
+  // }).done(function(dataUsa) {
+  //   // Array with CMS measures we query for in API
+  //   // KEY FOR ORDER IN CHART!!
+  //   var measureArray = ["READM-30-COPD-HRRP", "READM-30-HIP-KNEE-HRRP", "READM-30-AMI-HRRP", "READM-30-HF-HRRP", "READM-30-PN-HRRP"]
 
-  /////////////////// HOME PAGE HIGHCHART //////////////////
+  //   // Place holder - Stores top and bottom ratio for US
+  //   var ratioTopBotU = [];
 
-  // HOME PAGE Chart-container-7 Excess Ratio Range //
-  var chartOptions = {
-    chart: {
-            type: 'columnrange',
-            inverted: true
-        },
+  //   // Get 'Excess Readmissions Ratio' for EACH measure for all hosptials in the US
+  //   measureArray.forEach(function(measure) {
+  //     var ratioArrayU = [];
+  //     for (var i = 0; i < dataUsa.length; i++) {
+  //       if ((dataUsa[i].measure_id === measure)
+  //        && (dataUsa[i].readm_ratio !== "Not Available")
+  //        && (dataUsa[i].readm_ratio !== "Too Few to Report"))
+  //       {
+  //         ratioArrayU.push(dataUsa[i].readm_ratio);
+  //       }
+  //     } // end for loop
 
-        title: {
-            text: 'Excess Readmission Ratio Variation Across the US'
-        },
+  //     // Sort and store only top and bottom 'Excess Readmissions Ratio'
+  //     ratioArrayU = ratioArrayU.sort(function(a, b) { return a - b });
+  //     var sortedArrayU = [];
+  //     sortedArrayU.push(ratioArrayU[0], ratioArrayU[ratioArrayU.length - 1]);
+  //     ratioTopBotU.push(sortedArrayU);
+  //   });
+  //   console.log("ratioTopBotU", ratioTopBotU);
+  // }); // End AJAX 1
 
-        subtitle: {
-            text: 'Highest and Lowest Excess Readmission Ratio scores across the United States for each Measure'
-        },
+    /////////////////// HOME PAGE HIGHCHART //////////////////
 
-        xAxis: {
-            categories: ['COPD', 'HIP/KNEE', 'AMI', 'Heart Failure', 'Pneumonia']
-        },
+    // HOME PAGE Chart-container-7 Excess Ratio Range //
+    var chartOptions = {
+      chart: {
+              type: 'columnrange',
+              inverted: true
+          },
 
-        yAxis: {
-            title: {
-                text: 'Excess Readmission Ratios'
-            }
-        },
+          title: {
+              text: 'Excess Readmission Ratio Variation Across the US'
+          },
 
-        plotOptions: {
-            columnrange: {
-                dataLabels: {
-                    enabled: true,
-                    formatter: function () {
-                        return this.y;
-                    }
-                }
-            }
-        },
+          subtitle: {
+              text: 'Highest and Lowest Excess Readmission Ratio scores across the United States for each Measure'
+          },
 
-        legend: {
-            enabled: false
-        },
+          xAxis: {
+              categories: ['COPD', 'HIP/KNEE', 'AMI', 'Heart Failure', 'Pneumonia']
+          },
 
-        series: [{
-            name: 'Excess Ratios',
-            data: [
-                [ 0.8665, 1.1497 ],
-                [ 0.6787, 1.3154 ],
-                [ 0.8259, 1.2378 ],
-                [ 0.8113, 1.4563 ],
-                [ 0.8641, 1.2792 ]
-            ]
-        }]
-    }
+          yAxis: {
+              title: {
+                  text: 'Excess Readmission Ratios'
+              }
+          },
 
-  $('#chart-container').highcharts(chartOptions);
+          plotOptions: {
+              columnrange: {
+                  dataLabels: {
+                      enabled: true,
+                      formatter: function () {
+                          return this.y;
+                      }
+                  }
+              }
+          },
+
+          legend: {
+              enabled: false
+          },
+
+          series: [{
+              name: 'Excess Ratios',
+              data: [
+                  [ 0.8665, 1.1497 ],
+                  [ 0.6787, 1.3154 ],
+                  [ 0.8259, 1.2378 ],
+                  [ 0.8113, 1.4563 ],
+                  [ 0.8641, 1.2792 ] ],
+              color: "#DF5353"
+          }]
+      }
+
+    $('#chart-container').highcharts(chartOptions);
 
 // AJAX call for benchmark/hospital data
 // $("#dataset").click(function() {
@@ -115,7 +104,6 @@ $(document).ready(function() {
     url: "/dashboard/q-dataset"
   }).done(function(data) {
     console.log("DATASET", data.dataset);
-    console.log("ratioObjUSA", data.ratioObjUSA);
 
     $("#hospital-name").text("Report for " + data.dataset.hospital.hospital_name);
 
