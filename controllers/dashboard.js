@@ -6,7 +6,7 @@ var isLoggedIn = require("../middleware/isLoggedIn");
 var session = require("express-session");
 var router = express.Router();
 // highcharts global variables
-var ratioArray = [];
+// var ratioArray = [];
 
 //////////////////////////////////////////
 
@@ -110,6 +110,7 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
                 singleHospitalArray[i].number_of_readmissions
                 / singleHospitalArray[i].number_of_discharges)
                 * 100;
+              readmPercentHospital = parseFloat(readmPercentHospital.toFixed(2));
               readmPercentHospitalArr.push(readmPercentHospital);
             }
           }
@@ -155,6 +156,7 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
             } // end for loop
             // Percent of readmissions out of discharges for the ST
             var readminPercentbyST = (totalReadmins / totalDischarges) * 100;
+            readminPercentbyST = parseFloat(readminPercentbyST.toFixed(2));
             readmPercentHospitalArr.push(readminPercentbyST);
             // Sort and store only top and bottom 'Excess Readmissions Ratio'
             ratioArray = ratioArray.sort(function(a, b) { return a - b });
@@ -168,7 +170,7 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
           // Data used in app.js via AJAX
           console.log("@ratioObjAll:", ratioObjAll);
           console.log("@readmissionObjAll:", readmissionObjAll);
-          res.json({ readmissionObjAll: readmissionObjAll });
+          res.json({ readmissionObjAll: readmissionObjAll, ratioObjAll: ratioObjAll });
         }
       });// end STATE request function
     } else {
@@ -220,7 +222,7 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
           console.log("@ratioObjAll:", ratioObjAll);
           console.log("@readmissionObjAll:", readmissionObjAll);
           // Data used in app.js via AJAX
-          res.json({ readmissionObjAll: readmissionObjAll });
+          res.json({ readmissionObjAll: readmissionObjAll, ratioObjAll: ratioObjAll });
         }
       });// end US request function
     }

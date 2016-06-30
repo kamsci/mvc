@@ -1,3 +1,6 @@
+body {
+  background-color: rgba(239,235,233);
+}
 /* Navigation */
 .enter-nav {
   text-align: right;
@@ -13,10 +16,10 @@
   font-size: 14px;
   margin-right: 10px;
 }
-/* Dashboard & Data */
+/* Dashboard & Data ejs */
 .thick {
   border-width: 3px;
-  border-color: purple;
+  border-color: rgba(126,86,134,.9);
 }
 .report {
   margin-left: 25px;
@@ -55,4 +58,27 @@
 /* Modal */
 .fine-print {
   font-size: 12px;
+}
+/* HighCahrts */
+.chartBox {
+  justify-content: center;
+  margin-left: 40px;
+}
+.chart {
+  margin: 10px 10px;
+}
+.semi-thick {
+  border-width: 2px;
+  color: white;
+  width: 75%;
+}
+.chart-section {
+  font-family: 'Dosis', sans-serif;
+  text-align: center;
+}
+.p-section {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+  font-family: 'Dosis', sans-serif;
 }

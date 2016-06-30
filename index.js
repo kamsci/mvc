@@ -62,7 +62,7 @@ app.post("/signup", function(req, res) {
 
 // POST Modal action /login
 app.post("/login", passport.authenticate("local", {
-  successRedirect: "/dashboard",
+  successRedirect: "/dashboard/data",
   failureRedirect: "/",
   failureFlash: "Login Failed"
 }));
