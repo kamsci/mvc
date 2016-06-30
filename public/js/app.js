@@ -7,6 +7,107 @@ $(document).ready(function() {
     $(this).css("text-decoration", "none");
     $(this).css("color", "black");
   });
+
+  // AFAX call for home page chart
+  $.ajax({
+    method: "GET",
+    url: "https://data.medicare.gov/resource/kac9-a9fp.json"
+  }).done(function(dataUsa) {
+    // Array with CMS measures we query for in API
+    // KEY FOR ORDER IN CHART!!
+    var measureArray = ["READM-30-COPD-HRRP", "READM-30-HIP-KNEE-HRRP", "READM-30-AMI-HRRP", "READM-30-HF-HRRP", "READM-30-PN-HRRP"]
+    // Stores top and bottom ratio for US
+    // Place holder arrays
+    var ratioTopBotU = [];
+    var readmPercentHospitalArrU = [];
+    // Get 'Excess Readmissions Ratio' for EACH measure for all hosptials in the US
+    measureArray.forEach(function(measure) {
+      var ratioArrayU = [];
+      for (var i = 0; i < dataUsa.length; i++) {
+        if ((dataUsa[i].measure_id === measure)
+         && (dataUsa[i].readm_ratio !== "Not Available")
+         && (dataUsa[i].readm_ratio !== "Too Few to Report"))
+        {
+          ratioArrayU.push(dataUsa[i].readm_ratio);
+        }
+        // Total readmissions and discharges for combined hostitals in the US
+        if ((dataUsa[i].measure_id === measure)
+         && (dataUsa[i].number_of_readmissions !== "Not Available")
+         && (dataUsa[i].number_of_readmissions !== "Too Few to Report")
+         && (dataUsa[i].number_of_discharges !== "Not Available")
+         && (dataUsa[i].number_of_discharges !== "Too Few to Report"))
+        {
+          var totalReadminsU =+ dataUsa[i].number_of_readmissions;
+          var totalDischargesU =+ dataUsa[i].number_of_discharges;
+        }
+      } // end for loop
+      // Percent of readmissions out of discharges for the US
+      var readminPercentbyU = (totalReadminsU / totalDischargesU) * 100;
+      readmPercentHospitalArrU.push(readminPercentbyU);
+      // Sort and store only top and bottom 'Excess Readmissions Ratio'
+      ratioArrayU = ratioArrayU.sort(function(a, b) { return a - b });
+      var sortedArrayU = [];
+      sortedArrayU.push(ratioArrayU[0], ratioArrayU[ratioArrayU.length - 1]);
+      ratioTopBotU.push(sortedArrayU);
+    });
+  }) // End AJAX 1
+
+  /////////////////// HOME PAGE HIGHCHART //////////////////
+
+  // HOME PAGE Chart-container-7 Excess Ratio Range //
+  var chartOptions = {
+    chart: {
+            type: 'columnrange',
+            inverted: true
+        },
+
+        title: {
+            text: 'Excess Readmission Ratio Variation Across the US'
+        },
+
+        subtitle: {
+            text: 'Highest and Lowest Excess Readmission Ratio scores across the United States for each Measure'
+        },
+
+        xAxis: {
+            categories: ['COPD', 'HIP/KNEE', 'AMI', 'Heart Failure', 'Pneumonia']
+        },
+
+        yAxis: {
+            title: {
+                text: 'Excess Readmission Ratios'
+            }
+        },
+
+        plotOptions: {
+            columnrange: {
+                dataLabels: {
+                    enabled: true,
+                    formatter: function () {
+                        return this.y;
+                    }
+                }
+            }
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Excess Ratios',
+            data: [
+                [ 0.8665, 1.1497 ],
+                [ 0.6787, 1.3154 ],
+                [ 0.8259, 1.2378 ],
+                [ 0.8113, 1.4563 ],
+                [ 0.8641, 1.2792 ]
+            ]
+        }]
+    }
+
+  $('#chart-container').highcharts(chartOptions);
+
 // AJAX call for benchmark/hospital data
 // $("#dataset").click(function() {
   $.ajax({
@@ -14,9 +115,11 @@ $(document).ready(function() {
     url: "/dashboard/q-dataset"
   }).done(function(data) {
     console.log("DATASET", data.dataset);
+    console.log("ratioObjUSA", data.ratioObjUSA);
 
     $("#hospital-name").text("Report for " + data.dataset.hospital.hospital_name);
-    /////////////////// HIGHCHARTS //////////////////
+
+    /////////////////// DASHBOARD HIGHCHARTS //////////////////
 
     var benchmark = data.dataset.benchmark.name;
     // Chart-container-1 - Percent Readmissions //
@@ -374,106 +477,8 @@ $(document).ready(function() {
       };
 
     $('#chart-container-6').highcharts(chartOptionsPN);
-
-    // HOME PAGE Chart-container-7 Excess Ratio Range //
-    var chartOptionsPN = {
-      chart: {
-              type: 'columnrange',
-              inverted: true
-          },
-
-          title: {
-              text: 'Excess Ratio Variation Across the US'
-          },
-
-          subtitle: {
-              text: 'Highest and Lowest Excess Readmission Ratio scores across the United States for each Measure'
-          },
-
-          xAxis: {
-              categories: ['COPD', 'HIP/KNEE', 'AMI', 'Heart Failure', 'Pneumonia']
-          },
-
-          yAxis: {
-              title: {
-                  text: 'Excess Ratio'
-              }
-          },
-
-          plotOptions: {
-              columnrange: {
-                  dataLabels: {
-                      enabled: true,
-                      formatter: function () {
-                          return this.y + '°C';
-                      }
-                  }
-              }
-          },
-
-          legend: {
-              enabled: false
-          },
-
-          series: [{
-              name: 'Temperatures',
-              data: [
-                  [-9.7, 9.4],
-                  [-8.7, 6.5],
-                  [-3.5, 9.4],
-                  [-1.4, 19.9],
-                  [0.0, 22.6],
-                  [2.9, 29.5],
-                  [9.2, 30.7],
-                  [7.3, 26.5],
-                  [4.4, 18.0],
-                  [-3.1, 11.4],
-                  [-5.2, 10.4],
-                  [-13.5, 9.8]
-              ]
-          }]
-      }
-  }); // End Ajax
+  }); // End Ajax 2
 // }); // End onClick
-
-
-$("#runReport").click(function() {
-  $.get("https://data.medicare.gov/resource/kac9-a9fp.json")
-  .done(function(data) {
-
-  })
-})
-  // Highchart example
-$(function () {
-  var chartData = [1, 0, 4];
-  var chartOptions = {
-    chart: {
-        type: 'bar'
-    },
-    title: {
-        text: 'Fruit Consumption'
-    },
-    xAxis: {
-        categories: ['Apples', 'Bananas', 'Oranges']
-    },
-    yAxis: {
-        title: {
-            text: 'Fruit eaten'
-        }
-    },
-    series: [{
-        name: 'Jane',
-        data: chartData
-    }]
-  };
-
-  $('#chart-container').highcharts(chartOptions);
-});
-
-$(function () {
- // var chartData =
-})
-
 
 /**
  * Grid-light theme for Highcharts JS

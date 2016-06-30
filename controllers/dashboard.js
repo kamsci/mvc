@@ -77,7 +77,7 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
   // Object ready for Measure readmission %  for hospital & benchmark
   var readmissionObjAll = {};
   // Obj ready for USA Measure Ratios - Home Page Chart
-  // var ratioObjUSA = {};
+  var ratioObjUSA = {};
   // START QUERIES!
   console.log("@Library", library)
   db.dataset.find({
@@ -121,6 +121,69 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
       };
     }); // End request funtion 1
 
+   // BENCHMARK = UNITED STATES
+    request(
+    {
+      url: "https://data.medicare.gov/resource/kac9-a9fp.json"
+    },
+    function(error, response, data) {
+      if (!error && response.statusCode === 200) {
+        var dataArrayU = JSON.parse(data);
+        // Stores top and bottom ratio for US
+        // Place holder arrays
+        var ratioTopBotU = [];
+        var readmPercentHospitalArrU = [];
+        // Get 'Excess Readmissions Ratio' for EACH measure for all hosptials in the US
+        measureArray.forEach(function(measure) {
+          var ratioArrayU = [];
+          for (var i = 0; i < dataArrayU.length; i++) {
+            if ((dataArrayU[i].measure_id === measure)
+             && (dataArrayU[i].readm_ratio !== "Not Available")
+             && (dataArrayU[i].readm_ratio !== "Too Few to Report"))
+            {
+              ratioArrayU.push(dataArrayU[i].readm_ratio);
+            }
+            // Total readmissions and discharges for combined hostitals in the US
+            if ((dataArrayU[i].measure_id === measure)
+             && (dataArrayU[i].number_of_readmissions !== "Not Available")
+             && (dataArrayU[i].number_of_readmissions !== "Too Few to Report")
+             && (dataArrayU[i].number_of_discharges !== "Not Available")
+             && (dataArrayU[i].number_of_discharges !== "Too Few to Report"))
+            {
+              var totalReadminsU =+ dataArrayU[i].number_of_readmissions;
+              var totalDischargesU =+ dataArrayU[i].number_of_discharges;
+            }
+          } // end for loop
+          // Percent of readmissions out of discharges for the US
+          var readminPercentbyU = (totalReadminsU / totalDischargesU) * 100;
+          readmPercentHospitalArrU.push(readminPercentbyU);
+          // Sort and store only top and bottom 'Excess Readmissions Ratio'
+          ratioArrayU = ratioArrayU.sort(function(a, b) { return a - b });
+          var sortedArrayU = [];
+          sortedArrayU.push(ratioArrayU[0], ratioArrayU[ratioArrayU.length - 1]);
+          ratioTopBotU.push(sortedArrayU);
+        }); // End forEach(measure) - Benchmarks
+
+        // if BENCHMARK = UNITED STATES; not a state
+        if (dataset.benchmark.name === "United States") {
+          // Add ratio and readmission percent arrays to main obj
+          ratioObjAll.benchmark = ratioTopBotU;
+          readmissionObjAll.benchmark = readmPercentHospitalArrU;
+          ratioObjUSA = ratioTopBotU;
+          console.log("@ratioObjUSA", ratioObjUSA);
+          console.log("@ratioObjAll:", ratioObjAll);
+          console.log("@readmissionObjAll:", readmissionObjAll);
+          // Data used in app.js via AJAX
+          res.json(
+            {
+              readmissionObjAll: readmissionObjAll,
+              ratioObjAll: ratioObjAll,
+              dataset: dataset,
+              ratioObjUSA: ratioObjUSA
+            });
+        } // End if US statement
+      } // end if response
+    });// end US request function
     // IF BENCHMARK = STATE; not United States
     if (dataset.benchmark.name !== "United States") {
       request({
@@ -177,71 +240,12 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
               readmissionObjAll: readmissionObjAll,
               ratioObjAll:
               ratioObjAll,
-              dataset: dataset
+              dataset: dataset,
+              ratioObjUSA: ratioObjUSA
             });
         } // end if no error
       });// End STATE request function
     }; // End if statement
-   // BENCHMARK = UNITED STATES
-    request(
-    {
-      url: "https://data.medicare.gov/resource/kac9-a9fp.json"
-    },
-    function(error, response, data) {
-      if (!error && response.statusCode === 200) {
-        var dataArrayU = JSON.parse(data);
-        // Stores top and bottom ratio for US
-        // Place holder arrays
-        var ratioTopBotU = [];
-        var readmPercentHospitalArrU = [];
-        // Get 'Excess Readmissions Ratio' for EACH measure for all hosptials in the US
-        measureArray.forEach(function(measure) {
-          var ratioArrayU = [];
-          for (var i = 0; i < dataArrayU.length; i++) {
-            if ((dataArrayU[i].measure_id === measure)
-             && (dataArrayU[i].readm_ratio !== "Not Available")
-             && (dataArrayU[i].readm_ratio !== "Too Few to Report"))
-            {
-              ratioArrayU.push(dataArrayU[i].readm_ratio);
-            }
-            // Total readmissions and discharges for combined hostitals in the US
-            if ((dataArrayU[i].measure_id === measure)
-             && (dataArrayU[i].number_of_readmissions !== "Not Available")
-             && (dataArrayU[i].number_of_readmissions !== "Too Few to Report")
-             && (dataArrayU[i].number_of_discharges !== "Not Available")
-             && (dataArrayU[i].number_of_discharges !== "Too Few to Report"))
-            {
-              var totalReadminsU =+ dataArrayU[i].number_of_readmissions;
-              var totalDischargesU =+ dataArrayU[i].number_of_discharges;
-            }
-          } // end for loop
-          // Percent of readmissions out of discharges for the US
-          var readminPercentbyU = (totalReadminsU / totalDischargesU) * 100;
-          readmPercentHospitalArrU.push(readminPercentbyU);
-          // Sort and store only top and bottom 'Excess Readmissions Ratio'
-          ratioArrayU = ratioArrayU.sort(function(a, b) { return a - b });
-          var sortedArrayU = [];
-          sortedArrayU.push(ratioArrayU[0], ratioArrayU[ratioArrayU.length - 1]);
-          ratioTopBotU.push(sortedArrayU);
-        }); // End forEach(measure) - Benchmarks
-
-        // if BENCHMARK = UNITED STATES; not a state
-        if (dataset.benchmark.name === "United States") {
-          // Add ratio and readmission percent arrays to main obj
-          ratioObjAll.benchmark = ratioTopBotU;
-          readmissionObjAll.benchmark = readmPercentHospitalArrU;
-          console.log("@ratioObjAll:", ratioObjAll);
-          console.log("@readmissionObjAll:", readmissionObjAll);
-          // Data used in app.js via AJAX
-          res.json(
-            {
-              readmissionObjAll: readmissionObjAll,
-              ratioObjAll: ratioObjAll,
-              dataset: dataset
-            });
-        } // End if US statement
-      } // end if response
-    });// end US request function
   });
 });
 
