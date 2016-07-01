@@ -1,6 +1,7 @@
 $(document).ready(function() {
   // Materialize
   $('.modal-trigger').leanModal();
+  $('select').material_select();
   // Navigation
   $(".list-nav").hover(function() {
     $(this).css("text-decoration", "underline");
