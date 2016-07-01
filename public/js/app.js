@@ -2,6 +2,7 @@ $(document).ready(function() {
   // Materialize
   $('.modal-trigger').leanModal();
   $('select').material_select();
+  $(".button-collapse").sideNav();
   // Navigation
   $(".list-nav").hover(function() {
     $(this).css("text-decoration", "underline");
