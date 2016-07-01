@@ -1,27 +1,62 @@
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog">
+
+  <!-- Modal Structure -->
+<!--   <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <label for="authEmail">Email</label>
+          <input id="authEmail" class="form-control" type="email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="authPassword">Password</label>
+          <input id="authPassword" class="form-control" type="password" name="password" data-dismiss="modal">
+        </div>
+        <div class="modal-footer">
+        <input class="btn btn-primary" type="submit">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div> -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <h4>Welcome</h4>
+    <div class="row">
+      <form class="col s12" action="/login" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="authEmail" type="email" class="validate" name="email">
+            <label for="authEmail">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="authPassword" type="password" class="validate" name="password">
+            <label for="authPassword">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!--         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a> -->
+          <input type="submit" class=" modal-action modal-close waves-effect waves-green btn-flat">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade" id="login-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Login</h4>
       </div>
-      <div class="modal-body">
-        <!-- Form -->
-        <form action="/login" method="POST">
-          <div class="form-group">
-            <label for="authEmail">Email</label>
-            <input id="authEmail" class="form-control" type="email" name="email">
-          </div>
-          <div class="form-group">
-            <label for="authPassword">Password</label>
-            <input id="authPassword" class="form-control" type="password" name="password" data-dismiss="modal">
-          </div>
-          <div class="modal-footer">
-          <input class="btn btn-primary" type="submit">
-          </div>
-        </form><!-- end form -->
-      </div><!-- end modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+      <div class="modal-body"> -->
+
+      <!-- </div>end modal-body -->
+    <!-- </div>/.modal-content -->
+  <!-- </div>/.modal-dialog -->
+<!-- </div>/.modal -->
 

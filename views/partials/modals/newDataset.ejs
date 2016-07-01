@@ -1,3 +1,39 @@
+<!-- Modal -->
+<div id="dataset-modal" class="modal">
+    <div class="modal-content">
+      <h4>Data your Dashboard</h4>
+      <!-- Form -->
+      <form action="/dashboard/new-dataset" method="POST">
+        <label for="benchmark">Dashboard Name* </label>
+          <input id="benchmark" class="form-control" type="text" name="dataset" required>
+        <br>
+        <h4>Select Hospital</h4>
+        <div class="form-group">
+          <label for="provider">Hospital* <span class="fine-print text-muted">*required - listed with 6-digit provider id assigned by the Center for Medicare and Medicaid Services (CMS)</span></label>
+          <select id="dataset" class="form-control dropdown" name="hospital">
+            <!-- forEach loop with datasets in database -->
+            <% hospitals.forEach(function(hos) { %>
+              <option><%= hos.hospital_name %> - <%= hos.provider_id %></option>
+            <% }) %>
+          </select>
+        </div>
+        <br>
+        <h4>Create Benchmark for Comparison <span class="fine-print text-muted">*required</span></h4>
+        <div class="form-group">
+          <label for="states">Compare to*  </label>
+            <select id="states" class="form-control" name="state">
+              <%- include selectState.ejs %>
+            </select>
+        </div>
+      </form><!-- end form -->
+    </div>
+    <div class="modal-footer">
+      <input class="modal-action modal-close waves-effect waves-green btn-flat" type="submit" value="Add">
+    </div>
+  </div>
+
+
+<!-- <!-- <!--
 <div class="modal fade" id="dataset-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -7,7 +43,7 @@
       </div>
       <div class="modal-body">
         <!-- Form -->
-        <form action="/dashboard/new-dataset" method="POST">
+        <!-- <form action="/dashboard/new-dataset" method="POST">
           <label for="benchmark">Dashboard Name* </label>
             <input id="benchmark" class="form-control" type="text" name="dataset" required>
           <br>
@@ -16,7 +52,7 @@
             <label for="provider">Hospital* <span class="fine-print text-muted">*required - listed with 6-digit provider id assigned by the Center for Medicare and Medicaid Services (CMS)</span></label>
             <select id="dataset" class="form-control dropdown" name="hospital">
               <!-- forEach loop with datasets in database -->
-              <% hospitals.forEach(function(hos) { %>
+              <!-- <% hospitals.forEach(function(hos) { %>
                 <option><%= hos.hospital_name %> - <%= hos.provider_id %></option>
               <% }) %>
             </select>
@@ -30,10 +66,10 @@
               </select>
           </div>
           <div class="modal-footer">
-            <input class="btn btn-primary" type="submit">
-          </div>
-        </form><!-- end form -->
-      </div><!-- end modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            <input class="btn btn-primary" type="submit"> -->
+          <!-- </div> -->
+        <!-- </form><!-- end form -->
+      <!-- </div><!-- end modal-body -->
+    <!-- </div><!-- /.modal-content -->
+  <!-- </div><!-- /.modal-dialog -->
+<!-- </div><!-- /.modal -->
