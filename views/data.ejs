@@ -10,7 +10,7 @@
 <!-- Select Data Set-->
 <div class="container">
 
-    <form class="form-inline" action="/dashboard/q-dataset" method="POST">
+    <form action="/dashboard/q-dataset" method="POST">
       <h5 for="dataset">Select Data Set From Library </h5>
       <div class="inline">
         <select id="dataset" class="dropdown" name="library">
@@ -20,7 +20,7 @@
           <% }) %>
         </select>
       </div>
-      <span><input type="submit" value="Run Report" class="btn btn-default "></span>
+        <span><input type="submit" value="Report" class="btn waves-effect waves-light"></span>
     </form>
 
   <div>
@@ -30,7 +30,6 @@
   <div>
     <h5 class="header">My Data Set Library</h5>
     <button class="btn-floating btn-small waves-effect waves-light red modal-trigger" data-toggle="modal" data-target="dataset-modal"><i class="tiny material-icons">library_add</i></button>
-    <!-- <button type="button" class="btn btn-info btn-xs header-btn" data-toggle="modal" data-target="#dataset-modal">Add dashboard dataset</button> -->
   </div>
   <!-- forEach loop here -->
   <% userData.forEach(function(data) { %>
