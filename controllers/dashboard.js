@@ -10,7 +10,6 @@ var router = express.Router();
 
 // Dashboard - Report Page
 router.get("/", isLoggedIn, function(req, res) {
-  console.log(req.session);
   res.render("dashboard.ejs");
 });
 
@@ -30,8 +29,6 @@ router.get("/data", isLoggedIn, function(req, res) {
       include: [db.benchmark, db.hospital]
     })
     .then(function(dataset) {
-      // console.log("@Data:", dataset[0].benchmark.name);
-
       res.render("data.ejs", { hospitals: hospitalSort, userData: dataset });
     });
   });
@@ -39,7 +36,6 @@ router.get("/data", isLoggedIn, function(req, res) {
 
 // DELETE FORM - delete library
 router.post("/data/:id", isLoggedIn, function(req, res) {
-  console.log("@ delete route", req.params);
   db.dataset.destroy({
     where: { id: req.params.id }
   }).then(function (){
@@ -69,7 +65,6 @@ router.post("/new-dataset", isLoggedIn, function(req, res) {
         benchmarkId: bench.id
       })
       .catch(function(error) {
-        console.log("Error Creating DataSet")
       });
       res.redirect("/dashboard/data");
     });
@@ -79,7 +74,6 @@ router.post("/new-dataset", isLoggedIn, function(req, res) {
 // FROM - Save dataset request in session storage
 router.post("/q-dataset", isLoggedIn, function(req, res) {
   req.session.store = req.body.library
-  // session.Store.setItem("library", req.body.library);
   res.redirect("/dashboard/");
 });
 
@@ -97,7 +91,6 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
   // Obj ready for USA Measure Ratios - Home Page Chart
   var ratioObjUSA = {};
   // START QUERIES!
-  console.log("@Library", library)
   db.dataset.find({
     where: {
       userId: user,
@@ -188,9 +181,6 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
           ratioObjAll.benchmark = ratioTopBotU;
           readmissionObjAll.benchmark = readmPercentHospitalArrU;
           ratioObjUSA = ratioTopBotU;
-          console.log("@ratioObjUSA", ratioObjUSA);
-          console.log("@ratioObjAll:", ratioObjAll);
-          console.log("@readmissionObjAll:", readmissionObjAll);
           // Data used in app.js via AJAX
           res.json(
             {
@@ -251,8 +241,6 @@ router.get("/q-dataset", isLoggedIn, function(req, res) {
           ratioObjAll.benchmark = ratioTopBot;
           readmissionObjAll.benchmark = readmPercentHospitalArr;
           // Data used in app.js via AJAX
-          console.log("@ratioObjAll:", ratioObjAll);
-          console.log("@readmissionObjAll:", readmissionObjAll);
           res.json(
             {
               readmissionObjAll: readmissionObjAll,
