@@ -53,6 +53,10 @@ $(document).ready(function() {
               inverted: true
           },
 
+          credits: {
+            enabled: false
+          },
+
           title: {
               text: 'Excess Readmission Ratio Variation Across the US'
           },
@@ -120,6 +124,9 @@ $(document).ready(function() {
         chart: {
             type: 'column'
         },
+        credits: {
+            enabled: false
+          },
         title: {
             text: 'Readmissions Percentage'
         },
@@ -186,6 +193,9 @@ $(document).ready(function() {
           chart: {
               type: 'column'
           },
+          credits: {
+            enabled: false
+          },
           title: {
               text: 'COPD'
           },
@@ -246,6 +256,9 @@ $(document).ready(function() {
           title: {
               text: 'HIP/KNEE'
           },
+          credits: {
+            enabled: false
+          },
           subtitle: {
               text: 'Compare your hospital to the TOP and BOTTOM excess ratios in ' + benchmark
           },
@@ -300,6 +313,9 @@ $(document).ready(function() {
     var chartOptionsAMI = {
           chart: {
               type: 'column'
+          },
+          credits: {
+            enabled: false
           },
           title: {
               text: 'Heart Attach (AMI)'
@@ -359,6 +375,9 @@ $(document).ready(function() {
           chart: {
               type: 'column'
           },
+          credits: {
+            enabled: false
+          },
           title: {
               text: 'Heart Failure'
           },
@@ -417,6 +436,9 @@ $(document).ready(function() {
     var chartOptionsPN = {
           chart: {
               type: 'column'
+          },
+          credits: {
+            enabled: false
           },
           title: {
               text: 'Pneumonia'

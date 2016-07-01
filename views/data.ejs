@@ -8,21 +8,21 @@
 <% } %>
 
 <!-- Select Data Set-->
-<div class="container-fluid">
-  <div>
+<div class="container">
+
     <form class="form-inline" action="/dashboard/q-dataset" method="POST">
-      <div class="form-group">
-        <h5 for="dataset" class="inline">Select Data Set From Library </h5>
-          <select id="dataset" class="form-control dropdown" name="library">
-            <!-- forEach loop with datasets in database -->
-            <% userData.forEach(function(data) { %>
-              <option><%= data.name %></option>
-            <% }) %>
-          </select>
-        </div>
-      <input type="submit" value="Run Report" class="btn inline">
+      <h5 for="dataset">Select Data Set From Library </h5>
+      <div class="inline">
+        <select id="dataset" class="dropdown" name="library">
+          <!-- forEach loop with datasets in database -->
+          <% userData.forEach(function(data) { %>
+            <option><%= data.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <span><input type="submit" value="Run Report" class="btn btn-default "></span>
     </form>
-  </div>
+
   <div>
   </div>
   <hr class="thick">
