@@ -1,5 +1,44 @@
+<div id="signup-modal" class="modal">
+  <div class="modal-content">
+    <h4>Welcome</h4>
+    <div class="row">
+    <!-- Form -->
+    <form action="/signup" method="POST" class="col-s12">
+      <div class="row">
+        <div class="input-field col-s12">
+          <input type="text" name="name" id="authName">
+          <label for="authName">Name</label>
+        </div>
+      </div>
+        <div class="row">
+          <div class="input-field col-s12">
+            <input type="email" name="email" id="authEmail" class="validate">
+            <label for="authEmail">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col-s12">
+            <input type="password" name="password" id="authPassword" class="validate">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input class="btn-flat modal-action" type="submit">
+          <a href="/" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+      </form>
+      <!-- end form -->
+    </div>
+  </div>
+</div>
 
-<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog">
+
+
+
+
+
+
+<!-- <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,7 +46,7 @@
         <h4 class="modal-title">SignUp</h4>
       </div>
       <div class="modal-body">
-        <!-- Form -->
+
         <form action="/signup" method="POST">
           <div class="form-group">
             <label for="authEmail">Email</label>
@@ -26,8 +65,8 @@
           <div class="modal-footer">
           <input class="btn btn-primary" type="submit">
           </div>
-        </form><!-- end form -->
-      </div><!-- end modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </form> -->
+      <!-- </div>end modal-body -->
+    <!-- </div>/.modal-content -->
+  <!-- </div>/.modal-dialog -->
+<!-- </div>/.modal -->

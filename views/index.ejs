@@ -1,8 +1,25 @@
 <!-- Include modals -->
 <%- include partials/auth/login.ejs %>
 <%- include partials/auth/signup.ejs %>
-<!-- end modals -->
 
+<!-- Nav -->
+<% if (!currentUser) { %>
+      <ul class="enter-nav">
+        <li><a class="list-nav modal-trigger" href="#login-modal">Login</a></li>
+        <li><a class="list-nav modal-trigger" href="#signup-modal">SignUp</li></a>
+      </ul>
+    <% } %>
+
+<% if (currentUser) { %>
+  <ul class="enter-nav">
+    <li class="list-nav"><a href="/dashboard">Dashboard</a></li>
+    <li class="list-nav"><a href="/dashboard/data">Data Library</a></li>
+    <li class="list-nav"><a href="/logout">Logout</a></li>
+    <li class="inline"><i class="tiny material-icons">perm_identity</i><%= currentUser.name %></li>
+  </ul>
+<% } %>
+
+<!-- Home Page -->
 <div class="container">
   <h4>Hospital Readmissions Dashboard<small>   ...gratis!</small></h4>
 
