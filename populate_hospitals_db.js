@@ -28,3 +28,9 @@ var request = require("request");
         });
       }
   });
+
+db.hospital.findAll()
+.then(function(hos) {
+  var keys = Object.keys(hos);
+  console.log(keys);
+})

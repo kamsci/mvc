@@ -18,7 +18,7 @@
                 <option value="" disabled delected>Choose your option</option>
             <!-- forEach loop with datasets in database -->
               <% hospitals.forEach(function(hos) { %>
-                <option><%= hos.hospital_name %> - <%= hos.provider_id %></option>
+                <option><%= hos %></option>
               <% }) %>
             </select>
             <label for="hospital">Hospital* </label>

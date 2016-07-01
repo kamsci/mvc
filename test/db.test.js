@@ -37,9 +37,17 @@ var request = require("request");
     hospitals.forEach(function(hos) {
       var item = (hos.hospital_name + " - " + hos.provider_id);
       hospitalArray.push(item);
+      hospitalSort = hospitalArray.sort()
     });
-    console.log("Array: ", hospitalArray.sort());
+    console.log("@SORT: ", hospitalSort);
   });
+
+//   db.hospital.findAll()
+// .then(function(hos) {
+//   var keys = Object.keys(hos);
+//   console.log(keys);
+// })
+
 // 2. find all datasets associated to a user
 
 ///// OLDER FOR REFERENCE ///////
