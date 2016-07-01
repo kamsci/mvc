@@ -19,12 +19,14 @@ router.get("/data", isLoggedIn, function(req, res) {
   var user = req.session.passport.user;
   db.hospital.findAll()
   .then(function(hospitals) {
+    // var hospitalSort = hospitals.sort();
     db.dataset.findAll({
       where: { userId: user },
       include: [db.benchmark, db.hospital]
     })
     .then(function(dataset) {
       // console.log("@Data:", dataset[0].benchmark.name);
+
       res.render("data.ejs", { hospitals: hospitals, userData: dataset });
     });
   });

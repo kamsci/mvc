@@ -17,7 +17,21 @@
   <body>
     <%- JSON.stringify(currentUser) %>
     <% include partials/alerts %>
+    <% if (!currentUser) { %>
+      <ul class="enter-nav">
+        <li type="button" class="list-nav" data-toggle="modal" data-target="#signup-modal">SignUp</li>
+        <li type="button" class="list-nav" data-toggle="modal" data-target="#login-modal">Login</li>
+      </ul>
+    <% } %>
 
+    <% if (currentUser) { %>
+      <ul class="enter-nav">
+        <li class="list-nav"><a href="/dashboard">Dashboard</a></li>
+        <li class="list-nav"><a href="/dashboard/data">Data Library</a></li>
+        <li class="list-nav"><a href="/logout">Logout</a></li>
+        <li class="list-nav">Hi <%= currentUser.name %></li>
+      </ul>
+    <% } %>
       <%- body %>
 
     <!-- JQuery -->
