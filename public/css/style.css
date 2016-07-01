@@ -62,6 +62,9 @@ body {
 .inline {
   display: inline-block;
 }
+.remove {
+  color: red;
+}
 /* Modal */
 .fine-print {
   font-size: 12px;

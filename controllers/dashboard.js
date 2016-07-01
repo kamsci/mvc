@@ -32,6 +32,17 @@ router.get("/data", isLoggedIn, function(req, res) {
   });
 });
 
+// DELETE FORM - delete library
+router.post("/data/:id", isLoggedIn, function(req, res) {
+  console.log("@ delete route", req.params);
+  db.dataset.destroy({
+    where: { id: req.params.id }
+  }).then(function (){
+    req.flash("Dataset deleted.");
+    res.redirect("/dashboard/data")
+  });
+});
+
 // FORM - Add dashboard dataset
 router.post("/new-dataset", isLoggedIn, function(req, res) {
   var array = req.body.hospital.split(" - ");

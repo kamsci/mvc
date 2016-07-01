@@ -20,7 +20,7 @@
           <% }) %>
         </select>
       </div>
-        <span><input type="submit" value="Report" class="btn waves-effect waves-light"></span>
+        <input type="submit" value="Report" class="btn waves-effect waves-light ">
     </form>
 
   <div>
@@ -29,12 +29,17 @@
   <!-- Data Set List -->
   <div>
     <h5 class="header">My Data Set Library</h5>
-    <button class="btn-floating btn-small waves-effect waves-light red modal-trigger" data-toggle="modal" data-target="dataset-modal"><i class="tiny material-icons">library_add</i></button>
+    <button class="btn-floating btn-small waves-effect waves-light #DF5353 modal-trigger" data-toggle="modal" data-target="dataset-modal"><i class="tiny material-icons">library_add</i></button>
   </div>
   <!-- forEach loop here -->
   <% userData.forEach(function(data) { %>
     <div>
-      <h5 class="report"><%= data.name %></h5>
+      <form action="/dashboard/data/<%= data.id %>" method="POST">
+        <h5 class="report inline"><%= data.name %></h5>
+
+        <input type="submit" value="Delete" class="btn-tiny inline remove waves-effect waves-light ">
+
+      </form>
     </div>
       <!-- Provider info -->
     <div class="dataset-box"> <!-- Dataset -->
