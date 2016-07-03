@@ -7,8 +7,6 @@ var request = require("request");
   }, function(error, response, data) {
       var dataArray = JSON.parse(data);
       if (!error && response.statusCode === 200) {
-        // console.log("dataArray: ", dataArray);
-        // console.log("obj: ", dataArray[0]);
         dataArray.forEach(function(hospitalObj) {
           if ((hospitalObj.readm_ratio !== "Not Available")
              && (hospitalObj.readm_ratio !== "Too Few to Report")) {
@@ -28,9 +26,3 @@ var request = require("request");
         });
       }
   });
-
-db.hospital.findAll()
-.then(function(hos) {
-  var keys = Object.keys(hos);
-  console.log(keys);
-})

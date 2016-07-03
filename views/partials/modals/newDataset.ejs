@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Modal New Dataset-->
 <div id="dataset-modal" class="modal ">
   <!-- Form -->
   <form class="col-s12" action="/dashboard/new-dataset" method="POST">
@@ -16,7 +16,7 @@
           <div class="input-field">
             <select id="hospital" name="hospital">
                 <option value="" disabled delected>Choose your option</option>
-            <!-- forEach loop with datasets in database -->
+            <!-- forEach loop with hospitals in database -->
               <% hospitals.forEach(function(hos) { %>
                 <option><%= hos %></option>
               <% }) %>

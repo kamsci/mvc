@@ -3,6 +3,7 @@ $(document).ready(function() {
   $('.modal-trigger').leanModal();
   $('select').material_select();
   $(".button-collapse").sideNav();
+
   // Navigation
   $(".list-nav").hover(function() {
     $(this).css("text-decoration", "underline");
@@ -44,6 +45,7 @@ $(document).ready(function() {
   //   });
   //   console.log("ratioTopBotU", ratioTopBotU);
   // }); // End AJAX 1
+
 
     /////////////////// HOME PAGE HIGHCHART //////////////////
 
@@ -111,13 +113,13 @@ $(document).ready(function() {
     method: "GET",
     url: "/dashboard/q-dataset"
   }).done(function(data) {
-    console.log("DATASET", data.dataset);
-
+    // Add name of hopital to Dashboard
     $("#hospital-name").text("Report for " + data.dataset.hospital.hospital_name);
 
     /////////////////// DASHBOARD HIGHCHARTS //////////////////
 
     var benchmark = data.dataset.benchmark.name;
+
     // Chart-container-1 - Percent Readmissions //
       var chartDataBenchmarkP = data.readmissionObjAll.benchmark;
       var chartDataHospitalP = data.readmissionObjAll.hospital;
@@ -491,7 +493,7 @@ $(document).ready(function() {
       };
 
     $('#chart-container-6').highcharts(chartOptionsPN);
-  }); // End Ajax 2
+  }); // End Ajax
 // }); // End onClick
 
 /**

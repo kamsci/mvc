@@ -57,7 +57,6 @@ body {
   margin: 0;
 }
 .dataset-box {
-  /*background-color: lightgrey;*/
   border: 1px solid lightgrey;
   margin-left: 44px;
   padding: 5px;
@@ -72,7 +71,7 @@ body {
 .fine-print {
   font-size: 12px;
 }
-/* HighCahrts */
+/* HighCharts */
 .chartBox {
   justify-content: center;
   margin-left: 40px;
